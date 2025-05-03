@@ -6,13 +6,30 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D1A688002DC5C30B00BA2CC7 /* FlexibleKit in Frameworks */ = {isa = PBXBuildFile; productRef = D1A687FF2DC5C30B00BA2CC7 /* FlexibleKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		D1A687512DC5BB2D00BA2CC7 /* snapshot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = snapshot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D104F5232DC5EF910075DEC1 /* Exceptions for "snapshot" folder in "snapshot" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D1A687502DC5BB2D00BA2CC7 /* snapshot */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D1A687532DC5BB2D00BA2CC7 /* snapshot */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D104F5232DC5EF910075DEC1 /* Exceptions for "snapshot" folder in "snapshot" target */,
+			);
 			path = snapshot;
 			sourceTree = "<group>";
 		};
@@ -23,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1A688002DC5C30B00BA2CC7 /* FlexibleKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +83,7 @@
 			);
 			name = snapshot;
 			packageProductDependencies = (
+				D1A687FF2DC5C30B00BA2CC7 /* FlexibleKit */,
 			);
 			productName = snapshot;
 			productReference = D1A687512DC5BB2D00BA2CC7 /* snapshot.app */;
@@ -94,6 +113,9 @@
 			);
 			mainGroup = D1A687482DC5BB2D00BA2CC7;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D1A687FE2DC5C30B00BA2CC7 /* XCRemoteSwiftPackageReference "FlexibleKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D1A687522DC5BB2D00BA2CC7 /* Products */;
 			projectDirPath = "";
@@ -256,11 +278,14 @@
 				DEVELOPMENT_TEAM = U4VGJDX962;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = snapshot/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -284,11 +309,14 @@
 				DEVELOPMENT_TEAM = U4VGJDX962;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = snapshot/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -324,6 +352,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D1A687FE2DC5C30B00BA2CC7 /* XCRemoteSwiftPackageReference "FlexibleKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eunchan2815/FlexibleKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D1A687FF2DC5C30B00BA2CC7 /* FlexibleKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D1A687FE2DC5C30B00BA2CC7 /* XCRemoteSwiftPackageReference "FlexibleKit" */;
+			productName = FlexibleKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D1A687492DC5BB2D00BA2CC7 /* Project object */;
 }

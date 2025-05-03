@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isLaunch: Bool = true
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if isLaunch {
+            SplashView()
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        withAnimation(.linear) {
+                            self.isLaunch = false
+                        }
+                    }
+                }
+        } else {
+            NavigationView {
+                TabbarView()
+            }
         }
-        .padding()
     }
 }
 

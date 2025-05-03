@@ -9,7 +9,27 @@ import SwiftUI
 
 struct Header: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 0){
+            HStack(alignment: .bottom, spacing: 8){
+                Image("Logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 42)
+                
+                Text("SNAPSHOT")
+                    .font(.primary(28))
+                    .foregroundStyle(Color.brown)
+                    .padding(.bottom, 2)
+                Spacer()
+            }
+            .padding(.horizontal, 12)
+            .frame(maxWidth: .infinity, maxHeight: 64)
+            Rectangle()
+                .fill(Color.gray.opacity(0.2))
+                .frame(height: 1)
+        }
+            
+        
     }
 }
 

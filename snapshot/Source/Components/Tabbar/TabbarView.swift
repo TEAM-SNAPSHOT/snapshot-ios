@@ -7,12 +7,34 @@
 
 import SwiftUI
 
-struct TabbarVieww: View {
+
+
+struct TabbarView: View {
+    @State var currentTab: Tab = .album
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            VStack(spacing: 0){
+                Header()
+                if currentTab == .album {
+                    AlbumView()
+                } else if currentTab == .camera {
+                    CameraView()
+                } else if currentTab == .setting {
+                    SettingView()
+                }
+            }
+            VStack {
+                Spacer()
+                Tabbar(currentTab: $currentTab)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.grey)
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 
 #Preview {
-    TabbarVieww()
+    TabbarView()
 }

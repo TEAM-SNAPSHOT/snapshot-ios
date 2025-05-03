@@ -1,13 +1,17 @@
+//
+//  Color.swift
+//  snapshot
+//
+//  Created by cher1shRXD on 5/3/25.
+//
+
+
 import SwiftUI
 
 extension Color {
-    static let main = Color(hex: "346287")
-    static let serveColor = Color(hex: "33A99D")
-    static let red = Color(hex: "EF5A5A")
-    static let dark = Color(hex: "2E3D4A")
-    static let grey = Color(hex: "E0E0E0")
-    static let black = Color(hex: "000000")
-    static let background = Color(hex: "F6F6F6")
+    static let main = Color(hex: "FE969A")
+    static let brown = Color(hex: "A55B4B")
+    static let grey = Color(hex: "F7F7F7")
 }
 
 extension Color {

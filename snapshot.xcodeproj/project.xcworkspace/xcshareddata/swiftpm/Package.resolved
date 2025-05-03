@@ -1,0 +1,15 @@
+{
+  "originHash" : "847992d72b2f2ca9ed5744f494068b40edd013b6d18ae1806ab46e19bf005615",
+  "pins" : [
+    {
+      "identity" : "flexiblekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/eunchan2815/FlexibleKit",
+      "state" : {
+        "revision" : "a1c2c45b14bf5933ecebb678bac4d07d13650d2f",
+        "version" : "1.0.1"
+      }
+    }
+  ],
+  "version" : 3
+}

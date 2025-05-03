@@ -9,7 +9,23 @@ import SwiftUI
 
 struct SplashView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .center){
+            Spacer()
+            Image("Logo")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 100, height: 200)
+            Text("SNAPSHOT")
+                .font(.primary(32))
+                .foregroundStyle(Color.brown)
+            Spacer()
+            Text("© 2025 Snapshot All rights reserved.")
+                .font(.system(size: 12))
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.main)
+        .foregroundStyle(Color.grey)
     }
 }
 
