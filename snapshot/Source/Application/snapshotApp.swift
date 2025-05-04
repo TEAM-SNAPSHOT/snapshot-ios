@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct snapshotApp: App {
+    @AppStorage("darkMode") private var isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(isDarkMode ? .dark : .light)
         }
     }
 }

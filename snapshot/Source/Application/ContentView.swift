@@ -21,7 +21,7 @@ struct ContentView: View {
                     }
                 }
         } else {
-            NavigationView {
+            NavigationStack {
                 TabbarView()
             }
         }

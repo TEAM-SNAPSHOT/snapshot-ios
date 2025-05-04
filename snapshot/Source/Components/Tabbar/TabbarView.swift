@@ -10,6 +10,7 @@ import SwiftUI
 
 
 struct TabbarView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State var currentTab: Tab = .album
     
     var body: some View {
@@ -30,7 +31,7 @@ struct TabbarView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.grey)
+        .background(Color.grey(for: colorScheme))
         .edgesIgnoringSafeArea(.bottom)
     }
 }

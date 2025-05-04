@@ -10,9 +10,28 @@ import SwiftUI
 
 extension Color {
     static let main = Color(hex: "FE969A")
-    static let brown = Color(hex: "A55B4B")
-    static let grey = Color(hex: "F7F7F7")
+    
+    static func brown(for colorScheme: ColorScheme) -> Color {
+        Color(hex: colorScheme == .dark ? "BC9F8B" : "A55B4B")
+    }
+
+    static func grey(for colorScheme: ColorScheme) -> Color {
+        Color(hex: colorScheme == .dark ? "2B2B2B" : "F7F7F7")
+    }
+
+    static func black(for colorScheme: ColorScheme) -> Color {
+        Color(hex: colorScheme == .dark ? "FFFFFF" : "000000")
+    }
+    
+    static func container(for colorScheme: ColorScheme) -> Color {
+        Color(hex: colorScheme == .dark ? "313131" : "EFEFEF")
+    }
+
+    static func white(for colorScheme: ColorScheme) -> Color {
+        Color(hex: colorScheme == .dark ? "2B2B2B" : "FFFFFF")
+    }
 }
+
 
 extension Color {
     init(hex: String) {

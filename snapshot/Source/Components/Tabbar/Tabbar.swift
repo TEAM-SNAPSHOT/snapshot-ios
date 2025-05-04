@@ -16,6 +16,7 @@ enum Tab {
 
 struct Tabbar: View {
     @Binding var currentTab: Tab;
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack(alignment: .bottom){
@@ -46,7 +47,7 @@ struct Tabbar: View {
                         Text("설정")
                             .font(.system(size: 12))
                     }
-                    .foregroundStyle(currentTab == .setting ? Color.main :.gray)
+                    .foregroundStyle(currentTab == .setting ? Color.main : .gray)
                 }
                 .disabled(currentTab == .setting)
                 
@@ -55,7 +56,7 @@ struct Tabbar: View {
             .padding(.horizontal, UIScreen.main.bounds.width / 3 - 56)
             .padding(.bottom, 28)
             .padding(.top, 16)
-            .background(.white)
+            .background(Color.white(for: colorScheme))
             .roundedCorners(30, corners: [.topLeft, .topRight])
             
             VStack {
@@ -65,7 +66,7 @@ struct Tabbar: View {
                     VStack(alignment: .center, spacing: 4){
                         Image(systemName: "plus")
                             .font(.system(size: 32))
-                            .foregroundColor(.white)
+                            .foregroundColor(Color(hex: "FFFFFF"))
                     }
                     .frame(width: 64, height: 64)
                     .background(Color.main)
@@ -74,7 +75,7 @@ struct Tabbar: View {
                 .disabled(currentTab == .camera)
                 Spacer()
             }
-            .frame(height: 112)
+            .frame(height: 100)
         }
         .shadow(color: Color.gray.opacity(0.2), radius: 4)
         .edgesIgnoringSafeArea(.bottom)

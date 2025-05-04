@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Header: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack(spacing: 0){
             HStack(alignment: .bottom, spacing: 8){
@@ -18,15 +20,14 @@ struct Header: View {
                 
                 Text("SNAPSHOT")
                     .font(.primary(28))
-                    .foregroundStyle(Color.brown)
+                    .foregroundStyle(Color.brown(for: colorScheme))
                     .padding(.bottom, 2)
                 Spacer()
             }
             .padding(.horizontal, 12)
             .frame(maxWidth: .infinity, maxHeight: 64)
-            Rectangle()
-                .fill(Color.gray.opacity(0.2))
-                .frame(height: 1)
+            
+            Divider()
         }
             
         

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SplashView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack(alignment: .center){
             Spacer()
@@ -17,7 +19,7 @@ struct SplashView: View {
                 .frame(width: 100, height: 200)
             Text("SNAPSHOT")
                 .font(.primary(32))
-                .foregroundStyle(Color.brown)
+                .foregroundStyle(Color(hex: "A55B4B"))
             Spacer()
             Text("© 2025 Snapshot All rights reserved.")
                 .font(.system(size: 12))
@@ -25,7 +27,7 @@ struct SplashView: View {
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.main)
-        .foregroundStyle(Color.grey)
+        .foregroundStyle(Color(hex: "F7F7F7"))
     }
 }
 
