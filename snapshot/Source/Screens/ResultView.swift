@@ -28,7 +28,7 @@ struct ResultView: View {
                 } label: {
                     Image(systemName: "xmark")
                         .font(.title2)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color.black(for: colorScheme))
                 }
                 Spacer()
             }
@@ -165,6 +165,7 @@ struct ResultView: View {
             }
         }
         .padding(.horizontal, 12)
+        .padding(.top, 24)
         .frame(maxWidth: .infinity)
         .background(Color.grey(for: colorScheme))
         .navigationBarBackButtonHidden(true)
