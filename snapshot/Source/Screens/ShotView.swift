@@ -9,12 +9,48 @@ import SwiftUI
 import AVFoundation
 
 struct ShotView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = CameraViewModel()
+    @State private var isShowingImagePicker: Bool = false
+    @StateObject private var photoStore = PhotoStore.shared
+    @State private var isShotDisabled: Bool = false
     
     var body: some View {
         ZStack {
             CameraPreviewView(session: viewModel.session)
                 .edgesIgnoringSafeArea(.all)
+            
+            if viewModel.showSplash {
+                Color.white
+                    .opacity(0.8)
+                    .ignoresSafeArea()
+                    .transition(.opacity)
+            }
+
+            
+            VStack{
+                HStack(spacing: 4){
+                    Button {
+                        dismiss()
+                        photoStore.images.removeAll()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.title2)
+                            .foregroundStyle(.white)
+                    }
+                    Spacer()
+                    if viewModel.isCapturing {
+                        Text("\(viewModel.countdown)")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                        Image(systemName: "timer")
+                            .font(.title2)
+                            .foregroundStyle(.white)
+                    }
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 12)
             
             VStack {
                 Spacer()
@@ -29,37 +65,48 @@ struct ShotView: View {
                     
                     Spacer()
                     
-                    Button{
-                        viewModel.capturePhoto()
-                    } label: {
-                        Circle()
-                            .strokeBorder(Color.white, lineWidth: 4)
-                            .frame(width: 80, height: 80)
-                            .background(Circle().fill(Color.white))
-                            .padding()
+                    VStack {
+                        Button {
+                            isShotDisabled = true
+                            viewModel.startTimedCapture()
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                isShotDisabled = false
+                            }
+                        } label: {
+                            HStack(spacing: 0){
+                                if !viewModel.isCapturing {
+                                    Text("GO!")
+                                        .font(.primary(20))
+                                } else{
+                                    Text("8/")
+                                    Text("\(viewModel.remainingShots)")
+                                }
+                                
+                                Rectangle()
+                                    .fill(Color.clear)
+                                    .frame(width: 24, height: 2)
+                                
+                                Image("Logo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 44)
+                                    
+                            }
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                            .background(Color.main)
+                            .foregroundStyle(.white)
+                            .roundedCorners(16, corners: [.allCorners])
+                            
+                        }
+                        .disabled(isShotDisabled)
+
                     }
                     
                 }
                 .padding(.horizontal, 12)
             }
-            
-            VStack {
-                Spacer()
-                Rectangle()
-                    .fill(Color.clear)
-                    .frame(maxWidth: .infinity)
-                    .aspectRatio(3/4, contentMode: .fit)
-                    .border(Color.main, width: 2)
-                Spacer()
-            }
-            .padding(.horizontal, 12)
-            
-            VStack{
-                Text("네모에 맞춰서 사진을 찍어주세요!")
-                    .foregroundStyle(Color(hex: "FFFFFF"))
-                Spacer()
-            }
-            .padding(.top, 30)
             
         }
         .onAppear {
@@ -75,6 +122,11 @@ struct ShotView: View {
                 message: Text(viewModel.alertMessage),
                 dismissButton: .default(Text("확인"))
             )
+        }
+        .onChange(of: viewModel.isRemainingShotsZero) { newValue in
+            if newValue {
+                dismiss()
+            }
         }
         .navigationBarBackButtonHidden(true)
     }

@@ -9,20 +9,25 @@ import SwiftUI
 import AVFoundation
 
 class CameraViewModel: NSObject, ObservableObject {
-    @Published var capturedImages: [UIImage] = []
     @Published var showAlert = false
     @Published var alertTitle = ""
     @Published var alertMessage = ""
-    
+    @Published var countdown: Int = 0
+    @Published var remainingShots: Int = 8
+    @Published var isRemainingShotsZero: Bool = false
+    @Published var showSplash = false
+    @Published var isCapturing = false
+
+    private var timer: Timer?
+
     let session = AVCaptureSession()
     var camera: AVCaptureDevice?
     var photoOutput: AVCapturePhotoOutput?
     var isFrontCamera = false
-    
+
     func checkPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .authorized:
-            return
+        case .authorized: return
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 if !granted {
@@ -33,7 +38,7 @@ class CameraViewModel: NSObject, ObservableObject {
             showPermissionsAlert()
         }
     }
-    
+
     private func showPermissionsAlert() {
         DispatchQueue.main.async {
             self.alertTitle = "카메라 권한 필요"
@@ -41,47 +46,51 @@ class CameraViewModel: NSObject, ObservableObject {
             self.showAlert = true
         }
     }
-    
+
     func setupSession() {
         DispatchQueue.global(qos: .userInitiated).async {
             self.session.beginConfiguration()
-            
             if self.session.canSetSessionPreset(.photo) {
                 self.session.sessionPreset = .photo
             }
-            
             self.setupDevice()
-            
             self.setupInputs()
-            
             self.setupOutput()
-            
             self.session.commitConfiguration()
-            
             self.session.startRunning()
         }
     }
-    
+
     private func setupDevice() {
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(
+        let devices = AVCaptureDevice.DiscoverySession(
             deviceTypes: [.builtInWideAngleCamera],
             mediaType: .video,
             position: isFrontCamera ? .front : .back
-        )
-        
-        if let device = deviceDiscoverySession.devices.first {
-            camera = device
-        } else {
+        ).devices
+
+        guard let device = devices.first else {
             showSetupError()
+            return
+        }
+
+        camera = device
+        do {
+            try device.lockForConfiguration()
+            let zoomFactor: CGFloat = 2
+            if zoomFactor <= device.activeFormat.videoMaxZoomFactor {
+                device.videoZoomFactor = zoomFactor
+            }
+            device.unlockForConfiguration()
+        } catch {
+            print("카메라 줌 설정 오류: \(error.localizedDescription)")
         }
     }
-    
+
     private func setupInputs() {
         guard let camera = camera else { return }
-        
+        session.inputs.forEach { session.removeInput($0) }
+
         do {
-            session.inputs.forEach { session.removeInput($0) }
-            
             let input = try AVCaptureDeviceInput(device: camera)
             if session.canAddInput(input) {
                 session.addInput(input)
@@ -92,10 +101,9 @@ class CameraViewModel: NSObject, ObservableObject {
             showSetupError()
         }
     }
-    
+
     private func setupOutput() {
         session.outputs.forEach { session.removeOutput($0) }
-        
         let output = AVCapturePhotoOutput()
         if session.canAddOutput(output) {
             session.addOutput(output)
@@ -104,7 +112,7 @@ class CameraViewModel: NSObject, ObservableObject {
             showSetupError()
         }
     }
-    
+
     private func showSetupError() {
         DispatchQueue.main.async {
             self.alertTitle = "카메라 설정 오류"
@@ -112,28 +120,69 @@ class CameraViewModel: NSObject, ObservableObject {
             self.showAlert = true
         }
     }
-    
+
     func switchCamera() {
         isFrontCamera.toggle()
         setupSession()
     }
-    
-    func capturePhoto() {
-        guard let photoOutput = photoOutput else { return }
-        
-        let settings = AVCapturePhotoSettings()
-        photoOutput.capturePhoto(with: settings, delegate: self)
-    }
-    
+
     func stopSession() {
         session.stopRunning()
     }
-    
-    func savePhoto(_ image: UIImage) {
-        print("사진 저장 로직 실행")
-        
-//        capturedImage = nil
+
+    func capturePhotoWithSplash() {
+        showSplash = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.capturePhoto()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.showSplash = false
+        }
     }
+
+    func capturePhoto() {
+        guard let photoOutput = photoOutput else { return }
+        let settings = AVCapturePhotoSettings()
+        photoOutput.capturePhoto(with: settings, delegate: self)
+    }
+
+    func startTimedCapture(interval: Int = 8) {
+        countdown = interval
+        
+        if isCapturing {
+            takePhoto()
+            return
+        }
+
+        isCapturing = true
+        timer?.invalidate()
+
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            self.countdown -= 1
+
+            if self.countdown == 0 {
+                self.takePhoto()
+            }
+        }
+    }
+
+    private func takePhoto() {
+        self.capturePhotoWithSplash()
+        self.remainingShots -= 1
+
+        if self.remainingShots <= 0 {
+            self.timer?.invalidate()
+            self.timer = nil
+            self.isCapturing = false
+            self.isRemainingShotsZero.toggle()
+        } else {
+            self.countdown = 8
+        }
+        print(PhotoStore.shared.images)
+        print(remainingShots)
+    }
+
+
 }
 
 extension CameraViewModel: AVCapturePhotoCaptureDelegate {
@@ -142,22 +191,26 @@ extension CameraViewModel: AVCapturePhotoCaptureDelegate {
             print("사진 촬영 오류: \(error.localizedDescription)")
             return
         }
-        
+
         guard let imageData = photo.fileDataRepresentation(),
               let image = UIImage(data: imageData) else {
             return
         }
-        
-        let croppedImage = cropImageToAspectRatio(image, ratio: 3.0/4.0)
-            
+
+        var processedImage = image
+        if isFrontCamera {
+            processedImage = normalizeImage(image)
+        }
+
         DispatchQueue.main.async {
-            self.capturedImages.append(croppedImage)
+            PhotoStore.shared.images.append(processedImage)
         }
     }
-}
 
-struct CameraView_Previews: PreviewProvider {
-    static var previews: some View {
-        CameraView()
+    private func normalizeImage(_ image: UIImage) -> UIImage {
+        if let cgImage = image.cgImage {
+            return UIImage(cgImage: cgImage, scale: image.scale, orientation: .leftMirrored)
+        }
+        return image
     }
 }

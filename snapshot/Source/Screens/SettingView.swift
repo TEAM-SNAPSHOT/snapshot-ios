@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingView: View {
     @Environment(\.colorScheme) private var colorScheme
     @AppStorage("darkMode") private var isDarkMode: Bool = UITraitCollection.current.userInterfaceStyle == .dark
+    @StateObject private var photoStore = PhotoStore.shared
     
     @AppStorage("albumName") private var albumName: String = "스냅샷"
 
@@ -89,6 +90,11 @@ struct SettingView: View {
         .foregroundStyle(Color.black(for: colorScheme))
         .padding(.horizontal, 12)
         .padding(.vertical, 24)
+        .onAppear {
+            photoStore.images.removeAll()
+            photoStore.selectedImages.removeAll()
+            UserDefaults.standard.removeObject(forKey: "selectedFrame")
+        }
         
     }
 }

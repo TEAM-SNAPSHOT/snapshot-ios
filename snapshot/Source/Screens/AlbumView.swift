@@ -11,6 +11,7 @@ import WaterfallGrid
 struct AlbumView: View {
     @Environment(\.colorScheme) private var colorScheme
     @StateObject private var viewModel = AlbumViewModel()
+    @StateObject private var photoStore = PhotoStore.shared
     
     var body: some View {
         ScrollView {
@@ -33,6 +34,9 @@ struct AlbumView: View {
         .foregroundStyle(Color.black(for: colorScheme))
         .onAppear {
             viewModel.fetchPhotosFromAlbum(albumName: UserDefaults.standard.string(forKey: "albumName") ?? "스냅샷")
+            photoStore.images.removeAll()
+            photoStore.selectedImages.removeAll()
+            UserDefaults.standard.removeObject(forKey: "selectedFrame")
         }
     }
 }
