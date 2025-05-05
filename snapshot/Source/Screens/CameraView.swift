@@ -10,7 +10,12 @@ import SwiftUIMasonry
 
 struct CameraView: View {
     @Environment(\.colorScheme) var colorScheme
-    private let frameList: [String] = ["Horizontal1 Frame 1", "Horizontal1 Frame 2", "Horizontal1 Frame 3", "Horizontal1 Frame 4", "Horizontal1 Frame 5", "Horizontal1 Frame 6", "Horizontal1 Frame 7","Horizontal2 Frame 1", "Horizontal2 Frame 2", "Horizontal2 Frame 3", "Horizontal2 Frame 4", "Horizontal2 Frame 5", "Vertical Frame 1", "Vertical Frame 2", "Vertical Frame 3", "Vertical Frame 4", "Vertical Frame 5", "Vertical Frame 6"]
+    private let horizontal1List: [String] = ["Horizontal1 Frame 1", "Horizontal1 Frame 2", "Horizontal1 Frame 3", "Horizontal1 Frame 4", "Horizontal1 Frame 5", "Horizontal1 Frame 6", "Horizontal1 Frame 7", "Horizontal1 Frame 8"]
+    
+    private let horizontal2List: [String] = ["Horizontal2 Frame 1", "Horizontal2 Frame 2", "Horizontal2 Frame 3", "Horizontal2 Frame 4", "Horizontal2 Frame 5", "Horizontal2 Frame 6", "Horizontal2 Frame 7"]
+    
+    private let verticalList: [String] = ["Vertical Frame 1", "Vertical Frame 2", "Vertical Frame 3", "Vertical Frame 4", "Vertical Frame 5", "Vertical Frame 6", "Vertical Frame 7", "Vertical Frame 8"]
+    
     @State private var navigationTrigger = false
     @State private var isConfirmed = false
     @StateObject private var photoStore = PhotoStore.shared
@@ -139,8 +144,8 @@ struct CameraView: View {
                     .padding(.top, 12)
                     .padding(.bottom, 8)
                     
-                    Masonry(.vertical, lines: 3, spacing: 4){
-                        ForEach(frameList, id: \.self) { frame in
+                    VMasonry(columns: 3, spacing: 4){
+                        ForEach(horizontal1List + horizontal2List + verticalList, id: \.self) { frame in
                             Button {
                                 UserDefaults.standard.set(frame, forKey: "selectedFrame")
                                 navigationTrigger.toggle()
