@@ -2,15 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>instagram-stories</string>
+		<string>instagram</string>
+	</array>
+	<key>META_APP_ID</key>
+	<string>$(META_APP_ID)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Coiny-Regular.ttf</string>
 	</array>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>사진 라이브러리 접근을 허용해주세요.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>카메라 접근이 필요합니다.</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>사진 라이브러리 수정을 허용해주세요.</string>
 </dict>
 </plist>

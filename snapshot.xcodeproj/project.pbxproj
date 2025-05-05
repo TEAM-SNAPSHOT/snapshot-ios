@@ -9,10 +9,12 @@
 /* Begin PBXBuildFile section */
 		D104F5332DC636100075DEC1 /* WaterfallGrid in Frameworks */ = {isa = PBXBuildFile; productRef = D104F5322DC636100075DEC1 /* WaterfallGrid */; };
 		D15AEE5F2DC88A20005B6048 /* SwiftUIMasonry in Frameworks */ = {isa = PBXBuildFile; productRef = D15AEE5E2DC88A20005B6048 /* SwiftUIMasonry */; };
+		D15AEE6F2DC8AB45005B6048 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */; };
 		D1A688002DC5C30B00BA2CC7 /* FlexibleKit in Frameworks */ = {isa = PBXBuildFile; productRef = D1A687FF2DC5C30B00BA2CC7 /* FlexibleKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		D1A687512DC5BB2D00BA2CC7 /* snapshot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = snapshot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -54,6 +56,7 @@
 		D1A687482DC5BB2D00BA2CC7 = {
 			isa = PBXGroup;
 			children = (
+				D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */,
 				D1A687532DC5BB2D00BA2CC7 /* snapshot */,
 				D1A687522DC5BB2D00BA2CC7 /* Products */,
 			);
@@ -139,6 +142,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D15AEE6F2DC8AB45005B6048 /* Secrets.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +161,7 @@
 /* Begin XCBuildConfiguration section */
 		D1A6875A2DC5BB2E00BA2CC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -221,6 +226,7 @@
 		};
 		D1A6875B2DC5BB2E00BA2CC7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -278,6 +284,7 @@
 		};
 		D1A6875D2DC5BB2E00BA2CC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -287,12 +294,15 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = snapshot/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "스냅샷";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
-				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 사용을 위해 권한이 필요합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 앨범 접근을 허용해 주세요";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진 라이브러리 수정을 허용해주세요.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 라이브러리 접근을 허용해주세요.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -311,6 +321,7 @@
 		};
 		D1A6875E2DC5BB2E00BA2CC7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -320,12 +331,15 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = snapshot/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "스냅샷";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
-				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 사용을 위해 권한이 필요합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 앨범 접근을 허용해 주세요";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진 라이브러리 수정을 허용해주세요.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 라이브러리 접근을 허용해주세요.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;

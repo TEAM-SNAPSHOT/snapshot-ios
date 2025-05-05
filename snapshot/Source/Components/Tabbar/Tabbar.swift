@@ -66,7 +66,7 @@ struct Tabbar: View {
                     VStack(alignment: .center, spacing: 4){
                         Image(systemName: "plus")
                             .font(.system(size: 32))
-                            .foregroundColor(Color(hex: "FFFFFF"))
+                            .foregroundColor(.white)
                     }
                     .frame(width: 64, height: 64)
                     .background(Color.main)

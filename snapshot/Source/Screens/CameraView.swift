@@ -106,7 +106,7 @@ struct CameraView: View {
                                 }
                                 .padding(.vertical, 12)
                                 .frame(maxWidth: .infinity)
-                                .foregroundStyle(Color(hex: "FFFFFF"))
+                                .foregroundStyle(.white)
                                 .background(Color.main)
                                 .roundedCorners(8, corners: [.allCorners])
                             }

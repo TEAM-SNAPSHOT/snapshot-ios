@@ -36,7 +36,7 @@ class AlbumViewModel: ObservableObject {
                 print("📸 앨범 내 사진 수: \(assets.count)")
 
                 let imageManager = PHCachingImageManager()
-                let targetSize = CGSize(width: 500, height: 500) // 더 큰 사이즈로 변경
+                let targetSize = CGSize(width: 2000, height: 2000) // 더 큰 사이즈로 변경
 
                 let requestOptions = PHImageRequestOptions()
                 requestOptions.isSynchronous = true

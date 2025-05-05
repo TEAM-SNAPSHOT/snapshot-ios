@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import WaterfallGrid
 import SwiftUIMasonry
 
 struct AlbumView: View {
@@ -14,6 +13,8 @@ struct AlbumView: View {
     @StateObject private var viewModel = AlbumViewModel()
     @StateObject private var photoStore = PhotoStore.shared
     @State private var images: [UIImage] = []
+    @State private var showSheet: Bool = false
+    @State private var selectedImage: UIImage? = nil
     
     var body: some View {
         ScrollView {
@@ -27,10 +28,18 @@ struct AlbumView: View {
             
             Masonry(.vertical, lines: 3, spacing: 4){
                 ForEach(viewModel.images, id: \.self) { image in
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: .infinity)
+                    Button {
+                        selectedImage = image
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            selectedImage = nil
+                            showSheet.toggle()
+                        }
+                    } label: {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity)
+                    }
                 }
             }
             .padding(.top, 12)
@@ -57,6 +66,17 @@ struct AlbumView: View {
         .refreshable {
             viewModel.fetchPhotosFromAlbum(albumName: UserDefaults.standard.string(forKey: "albumName") ?? "")
         }
+        .onChange(of: selectedImage) { newValue in
+            if newValue != nil {
+                showSheet.toggle()
+            }
+        }
+        .sheet(isPresented: $showSheet) {
+            Share(image: selectedImage ?? UIImage())
+                .presentationDragIndicator(.visible)
+                .presentationDetents([.height(100)])
+        }
+        .presentationDetents([.fraction(0.4)])
     }
 }
 

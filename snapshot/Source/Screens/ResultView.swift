@@ -17,7 +17,7 @@ struct ResultView: View {
     @State private var selectedFrame = UserDefaults.standard.string(forKey: "selectedFrame") ?? "Horizontal1 Frame 1"
     
     @ObservedObject private var viewModel = ResultViewModel()
-    
+    @ObservedObject private var shareViewModel = ShareViewModel()
     
     var body: some View {
         VStack {
@@ -37,20 +37,26 @@ struct ResultView: View {
             
             Spacer()
             Button{
-                
-            } label: {
-                HStack{
-                    Text("공유하기")
+                captureView(of: Frame(selectedImages: $selectedImages, selectedFrame: $selectedFrame)) { image in
+                    if let image = image {
+                        shareViewModel.share(stickerImage: image)
+                    }
                 }
+            } label: {
+                HStack(alignment: .center, spacing: 8){
+                    Text("스토리에 공유하기")
+                    Image(systemName: "square.and.arrow.up")
+                }
+                .foregroundColor(.white)
                 .padding(.vertical, 12)
                 .frame(maxWidth: .infinity)
-                .foregroundStyle(Color(hex: "FFFFFF"))
                 .background(Color.main)
                 .roundedCorners(8, corners: [.allCorners])
             }
         }
         .padding(.horizontal, 12)
         .padding(.top, 24)
+        .padding(.bottom, 12)
         .frame(maxWidth: .infinity)
         .background(Color.grey(for: colorScheme))
         .navigationBarBackButtonHidden(true)
