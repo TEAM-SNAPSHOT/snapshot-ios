@@ -10,14 +10,18 @@ import SwiftUI
 struct Share: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel = ShareViewModel()
-    let image: UIImage
+    @Binding var image: UIImage?
     
     var body: some View {
         VStack {
             HStack {
                 Button {
-                    print(image)
-                    viewModel.share(stickerImage: image)
+                    if let image = image {
+                        viewModel.share(stickerImage: image)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.image = nil
+                        }
+                    }
                 } label: {
                     HStack(alignment: .center, spacing: 8){
                         Text("스토리에 공유하기")
@@ -29,6 +33,7 @@ struct Share: View {
                     .background(Color.main)
                     .roundedCorners(8, corners: [.allCorners])
                 }
+                .disabled(image == nil)
             }
         }
         .padding(.horizontal, 12)

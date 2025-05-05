@@ -30,10 +30,6 @@ struct AlbumView: View {
                 ForEach(viewModel.images, id: \.self) { image in
                     Button {
                         selectedImage = image
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            selectedImage = nil
-                            showSheet.toggle()
-                        }
                     } label: {
                         Image(uiImage: image)
                             .resizable()
@@ -68,11 +64,15 @@ struct AlbumView: View {
         }
         .onChange(of: selectedImage) { newValue in
             if newValue != nil {
-                showSheet.toggle()
+                showSheet = true
+            } else {
+                showSheet = false
             }
         }
-        .sheet(isPresented: $showSheet) {
-            Share(image: selectedImage ?? UIImage())
+        .sheet(isPresented: $showSheet, onDismiss: {
+            self.selectedImage = nil
+        }) {
+            Share(image: $selectedImage)
                 .presentationDragIndicator(.visible)
                 .presentationDetents([.height(100)])
         }

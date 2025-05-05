@@ -11,7 +11,7 @@ struct Frame: View {
     @Binding var selectedImages: [UIImage]
     @Binding var selectedFrame: String
     
-    private let imageWidth: CGFloat = 120
+    private let imageWidth: CGFloat = 124
     private let imageHeight: CGFloat = 164
     
     var body: some View {
@@ -23,7 +23,7 @@ struct Frame: View {
                             .scaledToFit()
                             .frame(width: 280)
                             .overlay{
-                                HStack(alignment: .top, spacing: 15){
+                                HStack(alignment: .top, spacing: 13){
                                     VStack(alignment: .leading, spacing: 8){
                                         Rectangle()
                                             .fill(Color.clear)
@@ -79,9 +79,16 @@ struct Frame: View {
                         .scaledToFit()
                         .frame(width: 280)
                         .overlay{
-                            HStack(alignment: .top, spacing: 15){
+                            HStack(alignment: .top, spacing: 13){
                                 VStack(alignment: .leading, spacing: 8){
                                     
+//                                    Rectangle()
+//                                        .fill(Color.red)
+//                                        .frame(width: imageWidth, height: imageHeight)
+//                                    
+//                                    Rectangle()
+//                                        .fill(Color.red)
+//                                        .frame(width: imageWidth, height: imageHeight)
                                     
                                     Image(uiImage: selectedImages[0])
                                         .resizable()
@@ -110,17 +117,27 @@ struct Frame: View {
                                         .frame(width: imageWidth, height: imageHeight)
                                         .clipped()
                                     
+//                                    Rectangle()
+//                                        .fill(Color.red)
+//                                        .frame(width: imageWidth, height: imageHeight)
+//                                    Rectangle()
+//                                        .fill(Color.red)
+//                                        .frame(width: imageWidth, height: imageHeight)
+                                    
                                     Rectangle()
                                         .fill(Color.clear)
                                         .frame(width: 10, height: 88)
                                 }
                             }
+                            .clipped()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .overlay{
                                 Image(selectedFrame)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 280)
                             }
+                            
                             .clipped()
                         }
                         
@@ -131,7 +148,7 @@ struct Frame: View {
                         .scaledToFit()
                         .frame(width: 200)
                         .overlay{
-                            VStack(alignment: .leading, spacing: 12){
+                            VStack(alignment: .leading, spacing: 8){
                             
                                 
                                 Image(uiImage: selectedImages[0])
@@ -172,3 +189,6 @@ struct Frame: View {
     }
 }
 
+#Preview {
+    Frame(selectedImages: .constant([]), selectedFrame: .constant("Horizontal2 Frame 2"))
+}
