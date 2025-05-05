@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D104F5332DC636100075DEC1 /* WaterfallGrid in Frameworks */ = {isa = PBXBuildFile; productRef = D104F5322DC636100075DEC1 /* WaterfallGrid */; };
 		D15AEE5F2DC88A20005B6048 /* SwiftUIMasonry in Frameworks */ = {isa = PBXBuildFile; productRef = D15AEE5E2DC88A20005B6048 /* SwiftUIMasonry */; };
 		D15AEE6F2DC8AB45005B6048 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */; };
 		D1A688002DC5C30B00BA2CC7 /* FlexibleKit in Frameworks */ = {isa = PBXBuildFile; productRef = D1A687FF2DC5C30B00BA2CC7 /* FlexibleKit */; };
@@ -46,7 +45,6 @@
 			files = (
 				D1A688002DC5C30B00BA2CC7 /* FlexibleKit in Frameworks */,
 				D15AEE5F2DC88A20005B6048 /* SwiftUIMasonry in Frameworks */,
-				D104F5332DC636100075DEC1 /* WaterfallGrid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +89,6 @@
 			name = snapshot;
 			packageProductDependencies = (
 				D1A687FF2DC5C30B00BA2CC7 /* FlexibleKit */,
-				D104F5322DC636100075DEC1 /* WaterfallGrid */,
 				D15AEE5E2DC88A20005B6048 /* SwiftUIMasonry */,
 			);
 			productName = snapshot;
@@ -124,7 +121,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				D1A687FE2DC5C30B00BA2CC7 /* XCRemoteSwiftPackageReference "FlexibleKit" */,
-				D104F5312DC636100075DEC1 /* XCRemoteSwiftPackageReference "WaterfallGrid" */,
 				D15AEE5D2DC88A20005B6048 /* XCRemoteSwiftPackageReference "SwiftUIMasonry" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -380,14 +376,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D104F5312DC636100075DEC1 /* XCRemoteSwiftPackageReference "WaterfallGrid" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/paololeonardi/WaterfallGrid";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
-			};
-		};
 		D15AEE5D2DC88A20005B6048 /* XCRemoteSwiftPackageReference "SwiftUIMasonry" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ciaranrobrien/SwiftUIMasonry";
@@ -407,11 +395,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D104F5322DC636100075DEC1 /* WaterfallGrid */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D104F5312DC636100075DEC1 /* XCRemoteSwiftPackageReference "WaterfallGrid" */;
-			productName = WaterfallGrid;
-		};
 		D15AEE5E2DC88A20005B6048 /* SwiftUIMasonry */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D15AEE5D2DC88A20005B6048 /* XCRemoteSwiftPackageReference "SwiftUIMasonry" */;
