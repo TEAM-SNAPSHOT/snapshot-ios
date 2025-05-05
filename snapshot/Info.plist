@@ -6,5 +6,11 @@
 	<array>
 		<string>Coiny-Regular.ttf</string>
 	</array>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>사진 라이브러리 접근을 허용해주세요.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>카메라 접근이 필요합니다.</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>사진 라이브러리 수정을 허용해주세요.</string>
 </dict>
 </plist>

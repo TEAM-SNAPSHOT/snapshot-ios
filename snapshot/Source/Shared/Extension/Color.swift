@@ -20,7 +20,7 @@ extension Color {
     }
 
     static func black(for colorScheme: ColorScheme) -> Color {
-        Color(hex: colorScheme == .dark ? "FFFFFF" : "000000")
+        Color(hex: colorScheme == .dark ? "FFFFFF" : "2B2B2B")
     }
     
     static func container(for colorScheme: ColorScheme) -> Color {

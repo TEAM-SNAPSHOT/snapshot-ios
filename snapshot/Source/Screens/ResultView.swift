@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Photos
+import UIKit
 
 struct ResultView: View {
     @Environment(\.dismiss) private var dismiss
@@ -14,17 +16,14 @@ struct ResultView: View {
     @State private var selectedImages: [UIImage] = []
     @State private var selectedFrame = UserDefaults.standard.string(forKey: "selectedFrame") ?? "Horizontal1 Frame 1"
     
-    private let imageWidth: CGFloat = 120
-    private let imageHeight: CGFloat = 164
+    @ObservedObject private var viewModel = ResultViewModel()
+    
     
     var body: some View {
         VStack {
             HStack{
                 Button {
                     dismiss()
-                    photoStore.images.removeAll()
-                    photoStore.selectedImages.removeAll()
-                    UserDefaults.standard.removeObject(forKey: "selectedFrame")
                 } label: {
                     Image(systemName: "xmark")
                         .font(.title2)
@@ -34,125 +33,11 @@ struct ResultView: View {
             }
             Spacer()
             
-            if !selectedImages.isEmpty {
-                if selectedFrame.contains("Horizontal1") {
-                    ZStack {
-                        Image(selectedFrame)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 280)
-                            
-                        
-                        HStack(alignment: .top, spacing: 16){
-                            VStack(alignment: .leading, spacing: 8){
-                                Rectangle()
-                                    .fill(Color.clear)
-                                    .frame(width: 10, height: 88)
-                                
-        //                        Rectangle()
-        //                            .fill(Color.red)
-        //                            .frame(width: imageWidth, height: imageHeight)
-        //                        Rectangle()
-        //                            .fill(Color.red)
-        //                            .frame(width: imageWidth, height: imageHeight)
-                                
-                                Image(uiImage: photoStore.selectedImages[0])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: imageWidth, height: imageHeight)
-                                Image(uiImage: photoStore.selectedImages[1])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: imageWidth, height: imageHeight)
-                            }
-                            VStack(alignment: .leading, spacing: 8){
-                                Image(uiImage: photoStore.selectedImages[2])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: imageWidth, height: imageHeight)
-                                Image(uiImage: photoStore.selectedImages[3])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: imageWidth, height: imageHeight)
-                                
-        //                        Rectangle()
-        //                            .fill(Color.red)
-        //                            .frame(width: imageWidth, height: imageHeight)
-        //                        Rectangle()
-        //                            .fill(Color.red)
-        //                            .frame(width: imageWidth, height: imageHeight)
-                                
-                                Rectangle()
-                                    .fill(Color.clear)
-                                    .frame(width: 10, height: 88)
-                            }
-                        }
-                        
-                    }
-                } else if selectedFrame.contains("Horizontal2") {
-                    ZStack {
-                        Image(selectedFrame)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 280)
-                            
-                        
-                        HStack(alignment: .top, spacing: 16){
-                            VStack(alignment: .leading, spacing: 8){
-                                
-                                
-        //                        Rectangle()
-        //                            .fill(Color.red)
-        //                            .frame(width: imageWidth, height: imageHeight)
-        //                        Rectangle()
-        //                            .fill(Color.red)
-        //                            .frame(width: imageWidth, height: imageHeight)
-                                
-                                Image(uiImage: photoStore.selectedImages[0])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: imageWidth, height: imageHeight)
-                                Image(uiImage: photoStore.selectedImages[1])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: imageWidth, height: imageHeight)
-                                
-                                Rectangle()
-                                    .fill(Color.clear)
-                                    .frame(width: 10, height: 88)
-                            }
-                            VStack(alignment: .leading, spacing: 8){
-                                Image(uiImage: photoStore.selectedImages[2])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: imageWidth, height: imageHeight)
-                                Image(uiImage: photoStore.selectedImages[3])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: imageWidth, height: imageHeight)
-                                
-        //                        Rectangle()
-        //                            .fill(Color.red)
-        //                            .frame(width: imageWidth, height: imageHeight)
-        //                        Rectangle()
-        //                            .fill(Color.red)
-        //                            .frame(width: imageWidth, height: imageHeight)
-                                
-                                Rectangle()
-                                    .fill(Color.clear)
-                                    .frame(width: 10, height: 88)
-                            }
-                        }
-                        
-                    }
-                }
-            }
-            
-            
+            Frame(selectedImages: $selectedImages, selectedFrame: $selectedFrame)
             
             Spacer()
             Button{
-               
+                
             } label: {
                 HStack{
                     Text("공유하기")
@@ -171,12 +56,27 @@ struct ResultView: View {
         .navigationBarBackButtonHidden(true)
         .onAppear{
             selectedImages = photoStore.selectedImages
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                captureView(of: Frame(selectedImages: $selectedImages, selectedFrame: $selectedFrame)) { image in
+                    if let image = image {
+                        viewModel.saveImageToAlbum(image, albumName: UserDefaults.standard.string(forKey: "albumName") ?? "스냅샷") { success, error in
+                            if success {
+                                print("이미지가 성공적으로 저장되었습니다!")
+                            } else {
+                                print("저장 실패: \(error ?? "알 수 없는 오류")")
+                            }
+                        }
+                    }
+                }
+                
+                photoStore.images.removeAll()
+                photoStore.selectedImages.removeAll()
+            }
+            
         }
         .onDisappear{
-            photoStore.images.removeAll()
-            photoStore.selectedImages.removeAll()
             UserDefaults.standard.removeObject(forKey: "selectedFrame")
-            
         }
     }
 }

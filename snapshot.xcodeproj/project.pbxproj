@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D104F5332DC636100075DEC1 /* WaterfallGrid in Frameworks */ = {isa = PBXBuildFile; productRef = D104F5322DC636100075DEC1 /* WaterfallGrid */; };
+		D15AEE5F2DC88A20005B6048 /* SwiftUIMasonry in Frameworks */ = {isa = PBXBuildFile; productRef = D15AEE5E2DC88A20005B6048 /* SwiftUIMasonry */; };
 		D1A688002DC5C30B00BA2CC7 /* FlexibleKit in Frameworks */ = {isa = PBXBuildFile; productRef = D1A687FF2DC5C30B00BA2CC7 /* FlexibleKit */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1A688002DC5C30B00BA2CC7 /* FlexibleKit in Frameworks */,
+				D15AEE5F2DC88A20005B6048 /* SwiftUIMasonry in Frameworks */,
 				D104F5332DC636100075DEC1 /* WaterfallGrid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +89,7 @@
 			packageProductDependencies = (
 				D1A687FF2DC5C30B00BA2CC7 /* FlexibleKit */,
 				D104F5322DC636100075DEC1 /* WaterfallGrid */,
+				D15AEE5E2DC88A20005B6048 /* SwiftUIMasonry */,
 			);
 			productName = snapshot;
 			productReference = D1A687512DC5BB2D00BA2CC7 /* snapshot.app */;
@@ -119,6 +122,7 @@
 			packageReferences = (
 				D1A687FE2DC5C30B00BA2CC7 /* XCRemoteSwiftPackageReference "FlexibleKit" */,
 				D104F5312DC636100075DEC1 /* XCRemoteSwiftPackageReference "WaterfallGrid" */,
+				D15AEE5D2DC88A20005B6048 /* XCRemoteSwiftPackageReference "SwiftUIMasonry" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D1A687522DC5BB2D00BA2CC7 /* Products */;
@@ -370,6 +374,14 @@
 				minimumVersion = 1.1.0;
 			};
 		};
+		D15AEE5D2DC88A20005B6048 /* XCRemoteSwiftPackageReference "SwiftUIMasonry" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ciaranrobrien/SwiftUIMasonry";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		D1A687FE2DC5C30B00BA2CC7 /* XCRemoteSwiftPackageReference "FlexibleKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/eunchan2815/FlexibleKit";
@@ -385,6 +397,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D104F5312DC636100075DEC1 /* XCRemoteSwiftPackageReference "WaterfallGrid" */;
 			productName = WaterfallGrid;
+		};
+		D15AEE5E2DC88A20005B6048 /* SwiftUIMasonry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D15AEE5D2DC88A20005B6048 /* XCRemoteSwiftPackageReference "SwiftUIMasonry" */;
+			productName = SwiftUIMasonry;
 		};
 		D1A687FF2DC5C30B00BA2CC7 /* FlexibleKit */ = {
 			isa = XCSwiftPackageProductDependency;

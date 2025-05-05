@@ -16,9 +16,18 @@ class PhotoStore: ObservableObject {
         if let index = selectedImages.firstIndex(of: image) {
             selectedImages.remove(at: index)
         } else {
-            if selectedImages.count < 4 {
-                selectedImages.append(image)
+            if let selectedFrame = UserDefaults.standard.string(forKey: "selectedFrame") {
+                if selectedFrame.contains("Vertical") {
+                    if selectedImages.count < 3 {
+                        selectedImages.append(image)
+                    }
+                } else {
+                    if selectedImages.count < 4 {
+                        selectedImages.append(image)
+                    }
+                }
             }
+            
         }
     }
 
