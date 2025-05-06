@@ -11,7 +11,7 @@ public extension View {
   @MainActor
   func captureView(
     of view: some View,
-    scale: CGFloat = 4.0,
+    scale: CGFloat = 5.0,
     size: CGSize? = nil,
     completion: @escaping (UIImage?) -> Void
   ) {

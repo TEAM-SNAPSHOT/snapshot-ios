@@ -17,8 +17,6 @@ class ShareViewModel: ObservableObject {
         
         guard let backgroundImage = UIImage(named: "StoryBg")?.pngData(),
               let stickerImage = stickerImage?.pngData() else { return }
-        
-        print("통과")
 
         shareToInstagram(pasteboardItems: [
             "com.instagram.sharedSticker.backgroundImage": backgroundImage,
@@ -29,7 +27,7 @@ class ShareViewModel: ObservableObject {
     private static func shareToInstagram(pasteboardItems: [String: Any]) {
         guard let urlScheme = URL(string: "instagram-stories://share?source_application=\(appId)"),
               UIApplication.shared.canOpenURL(urlScheme) else {
-            print("Instagram is not installed.")
+            UIApplication.shared.open(URL(string: "https://apps.apple.com/kr/app/instagram/id389801252")!, options: [:], completionHandler: nil)
             return
         }
 

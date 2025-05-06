@@ -14,11 +14,17 @@ struct Share: View {
     
     var body: some View {
         VStack {
+            Spacer()
+            Image(uiImage: image ?? UIImage())
+                .resizable()
+                .scaledToFit()
+                .frame(width: 280)
+            Spacer()
             HStack {
                 Button {
                     if let image = image {
                         viewModel.share(stickerImage: image)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             self.image = nil
                         }
                     }

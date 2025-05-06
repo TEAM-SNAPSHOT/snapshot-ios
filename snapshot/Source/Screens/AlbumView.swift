@@ -16,6 +16,8 @@ struct AlbumView: View {
     @State private var showSheet: Bool = false
     @State private var selectedImage: UIImage? = nil
     
+    @State private var sheetPresented: Bool = false
+    
     var body: some View {
         ScrollView {
             
@@ -74,9 +76,8 @@ struct AlbumView: View {
         }) {
             Share(image: $selectedImage)
                 .presentationDragIndicator(.visible)
-                .presentationDetents([.height(100)])
         }
-        .presentationDetents([.fraction(0.4)])
+        
     }
 }
 

@@ -30,14 +30,7 @@ struct ShotView: View {
             
             VStack{
                 HStack(spacing: 4){
-                    Button {
-                        dismiss()
-                        photoStore.images.removeAll()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.title2)
-                            .foregroundStyle(.white)
-                    }
+                    
                     Spacer()
                     if viewModel.isCapturing {
                         Text("\(viewModel.countdown)")
@@ -51,17 +44,24 @@ struct ShotView: View {
                 Spacer()
             }
             .padding(.horizontal, 12)
+            .padding(.top, 12)
+            .zIndex(1)
             
             VStack {
                 Spacer()
                 HStack {
                     Button {
-                        viewModel.switchCamera()
+                        dismiss()
+                        photoStore.images.removeAll()
                     } label: {
-                        Image(systemName: "arrow.triangle.2.circlepath.camera")
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
+                        Image(systemName: "iphone.and.arrow.forward.outward")
+                            .font(.title)
+                            .foregroundStyle(.red)
+                            .rotationEffect(.init(degrees: 180))
                     }
+                    .frame(width: 56, height: 56)
+                    
+                    
                     
                     Spacer()
                     
@@ -104,8 +104,21 @@ struct ShotView: View {
 
                     }
                     
+                    Spacer()
+                    
+                    
+                    Button {
+                        viewModel.switchCamera()
+                    } label: {
+                        Image(systemName: "arrow.triangle.2.circlepath.camera")
+                            .font(.title)
+                            .foregroundColor(.white)
+                    }
+                    .frame(width: 56, height: 56)
+                    
                 }
                 .padding(.horizontal, 12)
+                .padding(.bottom, 12)
             }
             
         }
