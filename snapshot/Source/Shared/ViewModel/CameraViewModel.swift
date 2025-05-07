@@ -17,8 +17,10 @@ class CameraViewModel: NSObject, ObservableObject {
     @Published var isRemainingShotsZero: Bool = false
     @Published var showSplash = false
     @Published var isCapturing = false
+    @Published var shootDisabled: Bool = false
 
     private var timer: Timer?
+    private var isCapturingPhoto = false
 
     let session = AVCaptureSession()
     var camera: AVCaptureDevice?
@@ -27,7 +29,8 @@ class CameraViewModel: NSObject, ObservableObject {
 
     func checkPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .authorized: return
+        case .authorized:
+            return
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 if !granted {
@@ -57,7 +60,9 @@ class CameraViewModel: NSObject, ObservableObject {
             self.setupInputs()
             self.setupOutput()
             self.session.commitConfiguration()
-            self.session.startRunning()
+            if !self.session.isRunning {
+                self.session.startRunning()
+            }
         }
     }
 
@@ -131,26 +136,33 @@ class CameraViewModel: NSObject, ObservableObject {
     }
 
     func capturePhotoWithSplash() {
+        guard !isCapturingPhoto else { return }
+        isCapturingPhoto = true
+
         showSplash = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.capturePhoto()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.showSplash = false
         }
     }
 
     func capturePhoto() {
-        guard let photoOutput = photoOutput else { return }
+        guard let photoOutput = photoOutput else {
+            isCapturingPhoto = false
+            return
+        }
+
         let settings = AVCapturePhotoSettings()
         photoOutput.capturePhoto(with: settings, delegate: self)
     }
 
-    func startTimedCapture(interval: Int = 8) {
+    func startTimedCapture() {
+        let interval = Int(UserDefaults.standard.string(forKey: "shotCount") ?? "8") ?? 8
         countdown = interval
-        
+
         if isCapturing {
             takePhoto()
+            shootTemporarilyDisabled()
             return
         }
 
@@ -162,37 +174,44 @@ class CameraViewModel: NSObject, ObservableObject {
 
             if self.countdown == 0 {
                 self.takePhoto()
+                self.shootTemporarilyDisabled()
             }
         }
     }
 
-    private func takePhoto() {
-        self.capturePhotoWithSplash()
-        self.remainingShots -= 1
-
-        if self.remainingShots <= 0 {
-            self.timer?.invalidate()
-            self.timer = nil
-            self.isCapturing = false
-            self.isRemainingShotsZero.toggle()
-        } else {
-            self.countdown = 8
+    private func shootTemporarilyDisabled() {
+        DispatchQueue.main.async {
+            self.shootDisabled = true
         }
-        print(PhotoStore.shared.images)
-        print(remainingShots)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.shootDisabled = false
+        }
     }
 
+    private func takePhoto() {
+        let interval = Int(UserDefaults.standard.string(forKey: "shotCount") ?? "8") ?? 8
+        countdown = interval
 
+        capturePhotoWithSplash()
+        remainingShots -= 1
+
+        if remainingShots <= 0 {
+            timer?.invalidate()
+            timer = nil
+            isCapturing = false
+            isRemainingShotsZero.toggle()
+        } else {
+            countdown = interval
+        }
+    }
 }
 
 extension CameraViewModel: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        if let error = error {
-            print("사진 촬영 오류: \(error.localizedDescription)")
-            return
-        }
+        defer { isCapturingPhoto = false }
 
-        guard let imageData = photo.fileDataRepresentation(),
+        guard error == nil,
+              let imageData = photo.fileDataRepresentation(),
               let image = UIImage(data: imageData) else {
             return
         }

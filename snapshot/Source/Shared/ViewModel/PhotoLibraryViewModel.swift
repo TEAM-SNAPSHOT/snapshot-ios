@@ -17,9 +17,6 @@ class AlbumViewModel: ObservableObject {
         self.isLoading = true
         PHPhotoLibrary.requestAuthorization { status in
             if status == .authorized || status == .limited {
-                
-                print(albumName)
-                
                 guard let album = self.fetchAssetCollection(for: albumName.isEmpty ? "스냅샷" : albumName) else {
                     print("앨범을 찾을 수 없습니다.")
                     DispatchQueue.main.async {
@@ -33,10 +30,9 @@ class AlbumViewModel: ObservableObject {
                 fetchOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.image.rawValue)
 
                 let assets = PHAsset.fetchAssets(in: album, options: fetchOptions)
-                print("📸 앨범 내 사진 수: \(assets.count)")
 
                 let imageManager = PHCachingImageManager()
-                let targetSize = CGSize(width: 2000, height: 2000) // 더 큰 사이즈로 변경
+                let targetSize = CGSize(width: 2000, height: 2000)
 
                 let requestOptions = PHImageRequestOptions()
                 requestOptions.isSynchronous = true
@@ -54,10 +50,7 @@ class AlbumViewModel: ObservableObject {
                         if let image = image {
                             DispatchQueue.main.async {
                                 fetchedImages.append(image)
-                                print("✅ 이미지 추가됨")
                             }
-                        } else {
-                            print("❌ 이미지 로드 실패 for asset: \(asset)")
                         }
                     }
                 }
@@ -65,10 +58,9 @@ class AlbumViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.images = fetchedImages
                     self.isLoading = false
-                    print(fetchedImages)
                 }
             } else {
-                print("사진 접근 권한이 없습니다.")
+                _ = Alert(title: Text("권한 요청"), message: Text("앨범 접근권한을 허용해주세요."), dismissButton: .default(Text("확인")))
             }
         }
         self.isLoading = false
@@ -87,20 +79,6 @@ class AlbumViewModel: ObservableObject {
         }
         
         return matched
-    }
-
-    
-    func printAllAlbums() {
-        PHPhotoLibrary.requestAuthorization { status in
-            if status == .authorized || status == .limited {
-                let userAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
-                userAlbums.enumerateObjects { collection, _, _ in
-                    print("앨범 이름: \(collection.localizedTitle ?? "알 수 없음")")
-                }
-            } else {
-                print("사진 접근 권한이 없습니다.")
-            }
-        }
     }
     
     

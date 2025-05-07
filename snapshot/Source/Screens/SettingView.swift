@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingView: View {
     @Environment(\.colorScheme) private var colorScheme
     @AppStorage("darkMode") private var isDarkMode: Bool = UITraitCollection.current.userInterfaceStyle == .dark
+    
     @StateObject private var photoStore = PhotoStore.shared
     
     @AppStorage("albumName") private var albumName: String = "스냅샷"
@@ -34,6 +35,25 @@ struct SettingView: View {
                         .roundedCorners(8, corners: [.allCorners])
                         .hideKeyBoard()
                 }
+                
+                Divider()
+                
+                VStack{
+                    HStack {
+                        Text("촬영 시간")
+                        Spacer()
+                        NumericTextField()
+                        Text("초")
+                    }
+                    HStack{
+                        Text("3초 이상, 16초 이하로 입력해주세요.")
+                            .font(.system(size: 12))
+                            .foregroundStyle(.gray)
+                        Spacer()
+                    }
+                    
+                }
+                
                 
             }
             .padding(12)

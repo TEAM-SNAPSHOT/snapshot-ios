@@ -13,7 +13,7 @@ struct ShotView: View {
     @StateObject private var viewModel = CameraViewModel()
     @State private var isShowingImagePicker: Bool = false
     @StateObject private var photoStore = PhotoStore.shared
-    @State private var isShotDisabled: Bool = false
+    @AppStorage("tutorial") private var tutorialShown: Bool = false
     
     var body: some View {
         ZStack {
@@ -67,12 +67,7 @@ struct ShotView: View {
                     
                     VStack {
                         Button {
-                            isShotDisabled = true
                             viewModel.startTimedCapture()
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                isShotDisabled = false
-                            }
                         } label: {
                             HStack(spacing: 0){
                                 if !viewModel.isCapturing {
@@ -100,7 +95,7 @@ struct ShotView: View {
                             .roundedCorners(16, corners: [.allCorners])
                             
                         }
-                        .disabled(isShotDisabled)
+                        .disabled(viewModel.shootDisabled)
 
                     }
                     
@@ -119,6 +114,10 @@ struct ShotView: View {
                 }
                 .padding(.horizontal, 12)
                 .padding(.bottom, 12)
+            }
+            
+            if !tutorialShown {
+                Tutorial()
             }
             
         }

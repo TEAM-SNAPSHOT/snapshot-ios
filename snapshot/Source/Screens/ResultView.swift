@@ -10,6 +10,7 @@ import Photos
 import UIKit
 
 struct ResultView: View {
+    @Binding var currentTab: Tab
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @StateObject private var photoStore = PhotoStore.shared
@@ -23,6 +24,7 @@ struct ResultView: View {
         VStack {
             HStack{
                 Button {
+                    currentTab = .album
                     dismiss()
                 } label: {
                     Image(systemName: "xmark")
@@ -88,5 +90,5 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView()
+    ResultView(currentTab: .constant(.album))
 }

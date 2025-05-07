@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftUIMasonry
 
 struct CameraView: View {
+    @Binding var currentTab: Tab
     @Environment(\.colorScheme) var colorScheme
     private let horizontal1List: [String] = ["Horizontal1 Frame 1", "Horizontal1 Frame 2", "Horizontal1 Frame 3", "Horizontal1 Frame 4", "Horizontal1 Frame 5", "Horizontal1 Frame 6", "Horizontal1 Frame 7", "Horizontal1 Frame 8"]
     
@@ -122,10 +123,7 @@ struct CameraView: View {
                 }
             }
             .navigationDestination(isPresented: $isConfirmed) {
-                ResultView()
-            }
-            .onAppear{
-                print(photoStore.images)
+                ResultView(currentTab: $currentTab)
             }
         } else {
             VStack(spacing: 4){
@@ -166,9 +164,6 @@ struct CameraView: View {
             .navigationDestination(isPresented: $navigationTrigger) {
                 ShotView()
             }
-            .onAppear {
-                print(photoStore.images)
-            }
             
         }
     }
@@ -176,5 +171,5 @@ struct CameraView: View {
 
 
 #Preview {
-    CameraView()
+    CameraView(currentTab: .constant(.camera))
 }

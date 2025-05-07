@@ -20,7 +20,7 @@ struct TabbarView: View {
                 if currentTab == .album {
                     AlbumView()
                 } else if currentTab == .camera {
-                    CameraView()
+                    CameraView(currentTab: $currentTab)
                 } else if currentTab == .setting {
                     SettingView()
                 }
