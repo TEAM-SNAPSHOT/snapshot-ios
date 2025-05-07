@@ -10,7 +10,6 @@ import Photos
 import UIKit
 
 struct ResultView: View {
-    @Binding var currentTab: Tab
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @StateObject private var photoStore = PhotoStore.shared
@@ -22,17 +21,6 @@ struct ResultView: View {
     
     var body: some View {
         VStack {
-            HStack{
-                Button {
-                    currentTab = .album
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.title2)
-                        .foregroundStyle(Color.black(for: colorScheme))
-                }
-                Spacer()
-            }
             Spacer()
             
             if let image = photoStore.resultImage {
@@ -63,13 +51,9 @@ struct ResultView: View {
         .frame(maxWidth: .infinity)
         .background(Color.grey(for: colorScheme))
         .navigationBarBackButtonHidden(true)
-        .onAppear{
-            photoStore.images.removeAll()
-            photoStore.selectedImages.removeAll()
-        }
         .onDisappear{
-            UserDefaults.standard.removeObject(forKey: "selectedFrame")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                UserDefaults.standard.removeObject(forKey: "selectedFrame")
                 photoStore.resultImage = nil
             }
         }
@@ -77,5 +61,5 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView(currentTab: .constant(.album))
+    ResultView()
 }

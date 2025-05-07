@@ -11,6 +11,7 @@ import SwiftUI
 
 struct FilterView: View {
     @Binding var currentTab: Tab
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @StateObject private var photoStore = PhotoStore.shared
     @State private var selectedImages: [UIImage] = []
@@ -21,12 +22,15 @@ struct FilterView: View {
     @ObservedObject private var viewModel = FilterViewModel()
     
     
+    
+    
     var body: some View {
         VStack {
             Spacer()
             
-            Frame(selectedImages: $viewModel.filteredImage, selectedFrame: $selectedFrame)
-            
+            let frame = Frame(selectedImages: $viewModel.filteredImage, selectedFrame: $selectedFrame)
+            frame
+                        
             Spacer()
             
             HStack {
@@ -76,7 +80,7 @@ struct FilterView: View {
             Spacer()
             
             Button{
-                captureView(of: Frame(selectedImages: $selectedImages, selectedFrame: $selectedFrame)) { image in
+                captureView(of: frame) { image in
                     if let image = image {
                         resultViewModel.saveImageToAlbum(image, albumName: UserDefaults.standard.string(forKey: "albumName") ?? "스냅샷") { _, _ in }
                         photoStore.resultImage = image
@@ -120,8 +124,11 @@ struct FilterView: View {
         .onChange(of: viewModel.selectedFilter) { newValue in
             viewModel.applyFilter(filter: newValue, originalImages: self.selectedImages)
         }
-        .navigationDestination(isPresented: $isSaved) {
-            ResultView(currentTab: $currentTab)
+        .sheet(isPresented: $isSaved, onDismiss: {
+            currentTab = .album
+            dismiss()
+        }) {
+            ResultView()
         }
     }
 }
