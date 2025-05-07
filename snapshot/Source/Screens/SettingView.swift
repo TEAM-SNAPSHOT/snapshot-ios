@@ -16,7 +16,7 @@ struct SettingView: View {
     @AppStorage("albumName") private var albumName: String = "스냅샷"
 
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false){
             VStack(alignment: .leading){
                 Text("설정")
                     .font(.system(size: 20))

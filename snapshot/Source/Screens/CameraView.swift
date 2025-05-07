@@ -26,7 +26,7 @@ struct CameraView: View {
     var body: some View {
         if(photoStore.images.count == 8){
             VStack(spacing: 4){
-                ScrollView {
+                ScrollView(showsIndicators: false){
                     HStack{
                         VStack(alignment: .leading, spacing: 4){
                             Text("Let's Make a SNAPSHOT!")
@@ -127,7 +127,7 @@ struct CameraView: View {
             }
         } else {
             VStack(spacing: 4){
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     HStack{
                         VStack(alignment: .leading, spacing: 4){
                             Text("Let's Take a SNAPSHOT!")

@@ -19,7 +19,7 @@ struct AlbumView: View {
     @State private var sheetPresented: Bool = false
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false){
             
             if(viewModel.images.isEmpty && !viewModel.isLoading){
                 Text("스냅샷이 없습니다 :(")
