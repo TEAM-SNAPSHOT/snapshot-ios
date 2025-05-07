@@ -11,6 +11,7 @@ class PhotoStore: ObservableObject {
     static let shared = PhotoStore()
     @Published var images: [UIImage] = []
     @Published var selectedImages: [UIImage] = []
+    @Published var resultImage: UIImage?
 
     func toggleSelection(for image: UIImage) {
         if let index = selectedImages.firstIndex(of: image) {

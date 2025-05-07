@@ -123,7 +123,8 @@ struct CameraView: View {
                 }
             }
             .navigationDestination(isPresented: $isConfirmed) {
-                ResultView(currentTab: $currentTab)
+//                ResultView(currentTab: $currentTab)
+                FilterView(currentTab: $currentTab)
             }
         } else {
             VStack(spacing: 4){

@@ -122,10 +122,11 @@ struct ShotView: View {
             
         }
         .onAppear {
+            photoStore.images.removeAll()
             viewModel.checkPermissions()
             viewModel.setupSession()
         }
-        .onDisappear {
+        .onDisappear {         
             viewModel.stopSession()
         }
         .alert(isPresented: $viewModel.showAlert) {

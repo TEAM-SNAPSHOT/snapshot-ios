@@ -59,8 +59,6 @@ class AlbumViewModel: ObservableObject {
                     self.images = fetchedImages
                     self.isLoading = false
                 }
-            } else {
-                _ = Alert(title: Text("권한 요청"), message: Text("앨범 접근권한을 허용해주세요."), dismissButton: .default(Text("확인")))
             }
         }
         self.isLoading = false
