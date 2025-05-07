@@ -25,6 +25,8 @@ class ShareViewModel: ObservableObject {
     }
 
     private static func shareToInstagram(pasteboardItems: [String: Any]) {
+        print(appId)
+        
         guard let urlScheme = URL(string: "instagram-stories://share?source_application=\(appId)"),
               UIApplication.shared.canOpenURL(urlScheme) else {
             UIApplication.shared.open(URL(string: "https://apps.apple.com/kr/app/instagram/id389801252")!, options: [:], completionHandler: nil)

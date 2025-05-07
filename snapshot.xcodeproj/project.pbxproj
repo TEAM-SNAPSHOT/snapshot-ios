@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D1393E0D2DCB8BB7009E1B53 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D1393E0C2DCB8BB7009E1B53 /* Config.xcconfig */; };
 		D15AEE5F2DC88A20005B6048 /* SwiftUIMasonry in Frameworks */ = {isa = PBXBuildFile; productRef = D15AEE5E2DC88A20005B6048 /* SwiftUIMasonry */; };
-		D15AEE6F2DC8AB45005B6048 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */; };
 		D1A688002DC5C30B00BA2CC7 /* FlexibleKit in Frameworks */ = {isa = PBXBuildFile; productRef = D1A687FF2DC5C30B00BA2CC7 /* FlexibleKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		D1393E0C2DCB8BB7009E1B53 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		D1A687512DC5BB2D00BA2CC7 /* snapshot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = snapshot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -54,7 +54,7 @@
 		D1A687482DC5BB2D00BA2CC7 = {
 			isa = PBXGroup;
 			children = (
-				D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */,
+				D1393E0C2DCB8BB7009E1B53 /* Config.xcconfig */,
 				D1A687532DC5BB2D00BA2CC7 /* snapshot */,
 				D1A687522DC5BB2D00BA2CC7 /* Products */,
 			);
@@ -138,7 +138,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D15AEE6F2DC8AB45005B6048 /* Secrets.xcconfig in Resources */,
+				D1393E0D2DCB8BB7009E1B53 /* Config.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +157,7 @@
 /* Begin XCBuildConfiguration section */
 		D1A6875A2DC5BB2E00BA2CC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */;
+			baseConfigurationReference = D1393E0C2DCB8BB7009E1B53 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -222,7 +222,7 @@
 		};
 		D1A6875B2DC5BB2E00BA2CC7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */;
+			baseConfigurationReference = D1393E0C2DCB8BB7009E1B53 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -280,7 +280,7 @@
 		};
 		D1A6875D2DC5BB2E00BA2CC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */;
+			baseConfigurationReference = D1393E0C2DCB8BB7009E1B53 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -320,7 +320,7 @@
 		};
 		D1A6875E2DC5BB2E00BA2CC7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D15AEE6E2DC8AB45005B6048 /* Secrets.xcconfig */;
+			baseConfigurationReference = D1393E0C2DCB8BB7009E1B53 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

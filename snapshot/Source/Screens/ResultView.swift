@@ -35,14 +35,15 @@ struct ResultView: View {
             }
             Spacer()
             
-            Frame(selectedImages: $selectedImages, selectedFrame: $selectedFrame)
+            if let image = photoStore.resultImage {
+                Image(uiImage: image)
+            }
+                
             
             Spacer()
             Button{
-                captureView(of: Frame(selectedImages: $selectedImages, selectedFrame: $selectedFrame)) { image in
-                    if let image = image {
-                        shareViewModel.share(stickerImage: image)
-                    }
+                if let image = photoStore.resultImage {
+                    shareViewModel.share(stickerImage: image)
                 }
             } label: {
                 HStack(alignment: .center, spacing: 8){
@@ -63,28 +64,14 @@ struct ResultView: View {
         .background(Color.grey(for: colorScheme))
         .navigationBarBackButtonHidden(true)
         .onAppear{
-            selectedImages = photoStore.selectedImages
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                captureView(of: Frame(selectedImages: $selectedImages, selectedFrame: $selectedFrame)) { image in
-                    if let image = image {
-                        viewModel.saveImageToAlbum(image, albumName: UserDefaults.standard.string(forKey: "albumName") ?? "스냅샷") { success, error in
-                            if success {
-                                print("이미지가 성공적으로 저장되었습니다!")
-                            } else {
-                                print("저장 실패: \(error ?? "알 수 없는 오류")")
-                            }
-                        }
-                    }
-                }
-                
-                photoStore.images.removeAll()
-                photoStore.selectedImages.removeAll()
-            }
-            
+            photoStore.images.removeAll()
+            photoStore.selectedImages.removeAll()
         }
         .onDisappear{
             UserDefaults.standard.removeObject(forKey: "selectedFrame")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                photoStore.resultImage = nil
+            }
         }
     }
 }
