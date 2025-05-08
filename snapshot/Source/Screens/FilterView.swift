@@ -129,6 +129,7 @@ struct FilterView: View {
             dismiss()
         }) {
             ResultView()
+                .presentationDragIndicator(.visible)
         }
     }
 }
